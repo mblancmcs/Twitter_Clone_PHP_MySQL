@@ -2,13 +2,13 @@
 
 	session_start();
 
-	if(!isset($_SESSION['usuario'])){
+	if(!isset($_SESSION['usuario'])){ //se o índice 'usuario' NÃO EXISTE na variável de sessão
 		header('Location: index.php?erro=1');
 	}
 
 	require_once('db.class.php');
 
-	$objDb = new db();
+	$objDb = new db(); //variável que referencia o objeto
 	$link = $objDb->conecta_mysql();
 
 	$id_usuario = $_SESSION['id_usuario'];
@@ -64,7 +64,8 @@
 		<script type="text/javascript">
 			
 			//JQuery
-			$(document).ready(function(){
+			$(document).ready(function(){ //caso o documento esteja pronto, associaremos uma função
+				//associar o evento de click ao botão
 				$('#btn_procurar_pessoa').click(function(){
 
 					if($('#nome_pessoa').val().length > 0){
@@ -72,7 +73,9 @@
 						$.ajax({
 							url: 'get_pessoas.php',
 							method: 'post',
+							//data: { texto_tweet: $('#texto_tweet').val() }, //data: { indice1 = valor1, indice2 = valor2 },
 							data: $('#form_procurar_pessoas').serialize(),
+							//Para fazer mais de uma vez (formulário muito grande), e não fazer como na instrução acima várias vezes. Porém precisa ser um form, e colocar um name (que tem que coincidir com o índice da super global em questão - GET - no script de destino 'get_pessoas.php') no input para servir como índice (chave) para a função serialize formar o JSON
 							success: function(data){ //o data recupera o conteúdo de get_pessoas.php
 								$('#pessoas').html(data);
 								$('.btn_seguir').click( function(){
@@ -86,7 +89,7 @@
 									$.ajax({
 										url: 'seguir.php',
 										method: 'post',
-										data: { seguir_id_usuario: id_usuario },
+										data: { seguir_id_usuario: id_usuario }, //passando um JSON já que não tem um formulário
 										success: function(data){
 											alert('Registro efetuado com sucesso');
 										}
@@ -102,7 +105,7 @@
 									$.ajax({
 										url: 'deixar_seguir.php',
 										method: 'post',
-										data: { deixar_seguir_id_usuario: id_usuario },
+										data: { deixar_seguir_id_usuario: id_usuario }, //passando um JSON já que não tem um formulário
 										success: function(data){
 											alert('Registro removido com sucesso');
 										}

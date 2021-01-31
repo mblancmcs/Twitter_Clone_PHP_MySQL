@@ -1,6 +1,7 @@
 
 <?php
 	
+	//treinando o if ternário, mas no outro curso mais atualizado, o mesmo prof diz que não é recomendado usar ele
 	$erro = isset($_GET['erro']) ? $_GET['erro'] : 0;
 
 	echo $erro;
@@ -22,32 +23,35 @@
 	
 		<script>
 			//JQuery
-			$(document).ready(function(){
+			$(document).ready(function(){ //caso esteja pronto, executar uma função
 
-				var campo_vazio = false;
+				var campo_vazio = false; // para caso não preencha nenhum dos dois campos
 
+				//verificar se os campos de usuário e senha foram devidamente preenchidos
 				$('#btn_login').click(function(){
 
 					if($('#campo_usuario').val() == ''){
 
 						$('#campo_usuario').css({'border-color': '#A94442' });
 						campo_vazio = true;
+						//alert('Campo usuário está vazio');
 					
 					} else {
-						$('#campo_usuario').css({'border-color': '#CCC' });
+						$('#campo_usuario').css({'border-color': '#CCC' }); // CASO O ID (#) campo_usuario NÃO SEJA IGUAL A '' (VAZIO)
 					}
 
 					if($('#campo_senha').val() == ''){
 
 						$('#campo_senha').css({'border-color': '#A94442' });
+						//alert('Campo senha está vazio');
 						campo_vazio = true;
 					
 					} else {
-						$('#campo_senha').css({'border-color': '#CCC' });
+						$('#campo_senha').css({'border-color': '#CCC' }); // CASO O ID (#) campo_senha NÃO SEJA IGUAL A '' (VAZIO)
 					}
 
 					if(campo_vazio) 
-						return false;
+						return false; // O RETURN FALSE NO EVENTO DE CLICK DO SUBMIT, IMPEDE QUE O FORMUÁRIO SEJA ENVIADO (CANCELA O DISPARO DA TRIGGER DO FORMULÁRIO)
 
 				});
 
@@ -73,6 +77,7 @@
 	        <div id="navbar" class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav navbar-right">
 	            <li><a href="inscrevase.php">Inscrever-se</a></li>
+	            <!--PRESTAR ATENÇÃO AQUI: SÓ DA PARA VER EM NO TAMANHO DE DESKTOP-->
 	            <li class="<?= $erro == 1 ? 'open' : '' ?>">
 	            <!--O bootstrap deixa a class como open quando é clicada, porém o que foi feito, foi que quando na url é passado o 'erro=1', ela já vem aberta para que o usuário já veja qual é o problema, mas caso não venha, esse parâmetro continuará vazio-->
 	            	<a id="entrar" data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Entrar</a>
